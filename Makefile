@@ -1,68 +1,61 @@
 # Target
-TARGET=					warm
+TARGET=				warm
 
 # Compilers
-CC=						clang
+CC=					clang
 
 # Directories
-SRCDIR=					./src
-INCDIR=					./inc
-BINDIR=					./bin
-OBJDIR=					./obj
-INCDIRS=				-I${INCDIR} -I.
-LIBDIRS=
+INCDIRS=			-I. -I./include 
+LIBDIRS=			
+
+# Libraries
+LDLIBS=				
 
 # Flags
-DEBUG=					-g3 -O0 -DTESTING
-C_WARN=					-Wall -Wextra -Werror -Wpedantic
-C_STD=					-ansi
-CFLAGS=					${INCDIRS} ${DEBUG} ${C_WARN} ${C_STD}
-LDFLAGS=				${LIBDIRS} ${DEBUG} ${LDLIBS}
+DEBUG=				-g3 -O0 -DTESTING
+C_WARN=				-Wall -Wextra -Werror -Wpedantic
+C_STD=				-ansi
 
-# Source files
-SRCS=					${SRCDIR}/main.c ${SRCDIR}/dot.c	
-OBJS=					${OBJDIR}/main.o ${OBJDIR}/dot.o	
+# Combined flags
+CFLAGS=				${INCDIRS} ${DEBUG} ${C_WARN} ${C_STD}
+LDFLAGS=			${LIBDIRS} ${DEBUG} ${LDLIBS}
+
+# Sources and Objects
+SRCS=				main.c dot.c
+OBJS=				${SRCS:.c=.o}
 
 # Default target
-all: ${BINDIR}/${TARGET}
-	@echo "Build complete."
+all: ${TARGET}
+	@echo "all"
 
-${BINDIR}/${TARGET}: ${OBJS}
-	@echo "Linking target..."
-	${CC} ${OBJS} ${LDFLAGS} -o $@
+${TARGET}: ${OBJS}
+	@echo "target"
+	${CC} ${OBJS} ${LDFLAGS} -o ${TARGET}
 
-${OBJS}: ${SRCS}
-	@echo "Compiling $<"
+.SUFFIXES: .c .o
+
+.c.o:
+	@echo ".c.o"
 	${CC} ${CFLAGS} -c $< -o $@
 
-${OBJDIR}:
-	mkdir -p ${OBJDIR}
-
-${BINDIR}:
-	mkdir -p ${BINDIR}
-
 clean:
-	@echo "Cleaning..."
-	rm -rf ${OBJDIR} ${BINDIR} *.core
+	@echo "clean"
+	rm -f ${OBJS} ${TARGET} *.core
 
-run: ${BINDIR}/${TARGET}
-	@echo "Running..."
-	./${BINDIR}/${TARGET}
+run: ${TARGET}
+	@echo "run"
+	./${TARGET}
 
-install: ${BINDIR}/${TARGET}
-	@echo "Installing..."
+install: ${TARGET}
+	@echo "install"
 	rm -f /usr/local/bin/${TARGET}
-	cp ${BINDIR}/${TARGET} /usr/local/bin/${TARGET}
+	cp ${TARGET} /usr/local/bin/${TARGET}
 
 commit:
-	@echo "Committing..."
+	@echo "commit"
 	git add .
 	git commit -m "AUTO COMMIT: `date +'%Y-%m-%d %H:%M:%S'`"
 	git push origin main
 
-debug:
-	echo ${SRCS}
-	echo ${OBJS}
-
-.PHONY: all clean run install commit debug
+.PHONY: all clean run install commit
 
