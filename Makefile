@@ -21,7 +21,7 @@ CFLAGS=				${INCDIRS} ${DEBUG} ${C_WARN} ${C_STD}
 LDFLAGS=			${LIBDIRS} ${DEBUG} ${LDLIBS}
 
 # Sources and Objects
-SRCS=				main.c dot.c
+SRCS=				main.c dot.c util.c warm.c
 OBJS=				${SRCS:.c=.o}
 
 # Default target

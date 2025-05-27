@@ -1,5 +1,11 @@
+#ifndef DOT_H
+#define DOT_H
+
 #include <defines.h>
+#include <util.h>
+
 #include <time.h>
+#include <stdio.h>
 
 typedef struct Dot
 {
@@ -11,3 +17,5 @@ typedef struct Dot
 Dot;
 
 i8 create_dot(Dot *dot);
+
+#endif

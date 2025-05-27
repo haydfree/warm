@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <defines.h>
+#include <warm.h>
 
 int
 main(void)
 {
 	
-	printf("hello world\n");
+	run();
 	return 0;
 }
