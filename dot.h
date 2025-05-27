@@ -9,7 +9,7 @@
 
 typedef struct Dot
 {
-	u64 id;
+	char id[ID_SIZE];
 	f32 lat;
 	f32 lon;
 	time_t expiry;

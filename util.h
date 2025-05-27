@@ -4,6 +4,6 @@
 #include <defines.h>
 #include <stdlib.h>
 
-i8 rand_u64(u64 *out);
+i8 rand_s256(char *out, u16 size);
 
 #endif

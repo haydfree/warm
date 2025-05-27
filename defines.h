@@ -1,6 +1,8 @@
 #ifndef DEFINES_H
 #define DEFINES_H
 
+#include <string.h>
+
 #define GUARD_OOB(val, min, max)                do { if ((val) < (min) || (val) > (max)) { goto cleanup; } } while (0)
 #define GUARD_NULL(ptr)                         do { if (!(ptr)) { goto cleanup; } } while (0)
 #define GUARD_TRUE(expr)                        do { if ((expr)) { goto cleanup; } } while (0)
@@ -53,5 +55,7 @@ STATIC_ASSERT(sizeof(f64) == 8, f64_must_be_8_bytes);
 #define FALSE 0
 #define SUCCESS 0
 #define ERROR -1
+
+#define ID_SIZE 256
 
 #endif
