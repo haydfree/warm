@@ -27,11 +27,11 @@ OBJS=					${OBJDIR}/main.o ${OBJDIR}/dot.o
 all: ${BINDIR}/${TARGET}
 	@echo "Build complete."
 
-${BINDIR}/${TARGET}: ${OBJS} | ${BINDIR}
+${BINDIR}/${TARGET}: ${OBJS}
 	@echo "Linking target..."
 	${CC} ${OBJS} ${LDFLAGS} -o $@
 
-${OBJDIR}/%.o: ${SRCDIR}/%.c | ${OBJDIR}
+${OBJS}: ${SRCS}
 	@echo "Compiling $<"
 	${CC} ${CFLAGS} -c $< -o $@
 
@@ -43,7 +43,7 @@ ${BINDIR}:
 
 clean:
 	@echo "Cleaning..."
-	rm -f ${OBJDIR}/*.o ${BINDIR}/${TARGET} *.core
+	rm -rf ${OBJDIR} ${BINDIR} *.core
 
 run: ${BINDIR}/${TARGET}
 	@echo "Running..."
